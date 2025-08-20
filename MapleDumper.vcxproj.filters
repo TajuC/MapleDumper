@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Headers">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="core">
+      <UniqueIdentifier>{a258b89f-1e51-459b-b6cc-aa656037e677}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="scan">
+      <UniqueIdentifier>{dece2693-0417-4373-ad6a-e9c634b3cfc7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="proc">
+      <UniqueIdentifier>{eb96cc05-7ee2-45da-8e28-3ca55bfe41ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="io">
+      <UniqueIdentifier>{1e0aebaf-3f5d-49a8-8ae6-8156c0ac34ef}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="libs.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="includes.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="config.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="ntapi.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="pattern.h">
+      <Filter>scan</Filter>
+    </ClInclude>
+    <ClInclude Include="process.h">
+      <Filter>proc</Filter>
+    </ClInclude>
+    <ClInclude Include="regions.h">
+      <Filter>proc</Filter>
+    </ClInclude>
+    <ClInclude Include="reader.h">
+      <Filter>scan</Filter>
+    </ClInclude>
+    <ClInclude Include="scanner.h">
+      <Filter>scan</Filter>
+    </ClInclude>
+    <ClInclude Include="resolver.h">
+      <Filter>scan</Filter>
+    </ClInclude>
+    <ClInclude Include="pattern_loader.h">
+      <Filter>io</Filter>
+    </ClInclude>
+    <ClInclude Include="save_ce.h">
+      <Filter>io</Filter>
+    </ClInclude>
+    <ClInclude Include="save_offsets.h">
+      <Filter>io</Filter>
+    </ClInclude>
+    <ClInclude Include="save_plain.h">
+      <Filter>io</Filter>
+    </ClInclude>
+    <ClInclude Include="categorizer.h">
+      <Filter>io</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="MapleDumper.rc">
+      <Filter>Resources</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="C:\Users\kerne\Downloads\Taju.ico">
+      <Filter>Resources</Filter>
+    </Image>
+  </ItemGroup>
+</Project>
