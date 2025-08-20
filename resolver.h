@@ -1,37 +1,25 @@
-// resolver.h
 #pragma once
 #include <Windows.h>
 #include <cstdint>
+#include <cstddef>
 #include "reader.h"
 
 namespace scan {
     inline uintptr_t ExtractPointerFromData(const uint8_t* data, size_t dataSize, uintptr_t instrAddr) {
-        if (dataSize < 5) return 0;
-        uintptr_t firstTarget = 0;
-        int callCount = 0;
-        for (size_t i = 0; i + 5 <= dataSize; ++i) {
-            if (data[i] == 0xE8) {
-                int32_t rel = *reinterpret_cast<const int32_t*>(data + i + 1);
-                uintptr_t targ = instrAddr + i + 5 + rel;
-                ++callCount;
-                if (callCount == 1) firstTarget = targ;
-                else if (callCount == 2) return targ;
-            }
+        if (!data || dataSize < 5) return 0;
+        if (dataSize >= 5 && data[0] == 0xE8) {
+            int32_t disp = *reinterpret_cast<const int32_t*>(data + 1);
+            return instrAddr + 5 + disp;
         }
-        if (callCount == 1) return firstTarget;
-        if (data[0] == 0xE9 && dataSize >= 5) {
-            int32_t rel = *reinterpret_cast<const int32_t*>(data + 1);
-            return instrAddr + 5 + rel;
-        }
-        if (dataSize >= 6 && data[0] == 0x0F && (data[1] == 0x84 || data[1] == 0x85)) {
-            int32_t rel = *reinterpret_cast<const int32_t*>(data + 2);
-            return instrAddr + 6 + rel;
-        }
-        if ((data[0] & 0xF8) == 0x40 && data[1] == 0x8B && (data[2] & 0xC7) == 0x05 && dataSize >= 7) {
+        if (dataSize >= 7 && data[0] == 0x48 && data[1] == 0x8B && (data[2] & 0xC7) == 0x05) {
             int32_t disp = *reinterpret_cast<const int32_t*>(data + 3);
             return instrAddr + 7 + disp;
         }
-        if ((data[0] & 0xF8) == 0x40 && data[1] == 0x83 && data[2] == 0x3D && dataSize >= 8) {
+        if (dataSize >= 7 && data[0] == 0x48 && data[1] == 0x8D && (data[2] & 0xC7) == 0x05) {
+            int32_t disp = *reinterpret_cast<const int32_t*>(data + 3);
+            return instrAddr + 7 + disp;
+        }
+        if (dataSize >= 8 && (data[0] & 0xF8) == 0x40 && data[1] == 0x83 && data[2] == 0x3D) {
             int32_t disp = *reinterpret_cast<const int32_t*>(data + 3);
             return instrAddr + 8 + disp;
         }
@@ -59,4 +47,4 @@ namespace scan {
         }
         return 0;
     }
-} 
+}
