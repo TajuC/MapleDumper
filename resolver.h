@@ -7,27 +7,35 @@
 namespace scan {
     inline uintptr_t ExtractPointerFromData(const uint8_t* data, size_t dataSize, uintptr_t instrAddr) {
         if (!data || dataSize < 5) return 0;
-        if (dataSize >= 5 && data[0] == 0xE8) {
-            int32_t disp = *reinterpret_cast<const int32_t*>(data + 1);
-            return instrAddr + 5 + disp;
-        }
-        if (dataSize >= 7 && data[0] == 0x48 && data[1] == 0x8B && (data[2] & 0xC7) == 0x05) {
-            int32_t disp = *reinterpret_cast<const int32_t*>(data + 3);
-            return instrAddr + 7 + disp;
-        }
-        if (dataSize >= 7 && data[0] == 0x48 && data[1] == 0x8D && (data[2] & 0xC7) == 0x05) {
-            int32_t disp = *reinterpret_cast<const int32_t*>(data + 3);
-            return instrAddr + 7 + disp;
-        }
-        if (dataSize >= 8 && (data[0] & 0xF8) == 0x40 && data[1] == 0x83 && data[2] == 0x3D) {
-            int32_t disp = *reinterpret_cast<const int32_t*>(data + 3);
-            return instrAddr + 8 + disp;
-        }
-        if (dataSize >= 8 && data[0] == 0xF2 && data[1] == 0x0F &&
-            (data[2] == 0x10 || data[2] == 0x5E || data[2] == 0x59 || data[2] == 0x58) &&
-            data[3] == 0x05) {
-            int32_t disp = *reinterpret_cast<const int32_t*>(data + 4);
-            return instrAddr + 8 + disp;
+        const size_t limit = dataSize > 32 ? 32 : dataSize;
+        for (size_t off = 0; off + 5 <= limit; ++off) {
+            const uint8_t* p = data + off;
+            if (p[0] == 0xE9 && off + 5 <= dataSize) {
+                int32_t rel = *reinterpret_cast<const int32_t*>(p + 1);
+                return instrAddr + off + 5 + rel;
+            }
+            if (p[0] == 0xE8 && off + 5 <= dataSize) {
+                int32_t rel = *reinterpret_cast<const int32_t*>(p + 1);
+                return instrAddr + off + 5 + rel;
+            }
+            if (off + 7 <= dataSize && p[0] == 0x48 && p[1] == 0x8B && (p[2] & 0xC7) == 0x05) {
+                int32_t disp = *reinterpret_cast<const int32_t*>(p + 3);
+                return instrAddr + off + 7 + disp;
+            }
+            if (off + 7 <= dataSize && p[0] == 0x48 && p[1] == 0x8D && (p[2] & 0xC7) == 0x05) {
+                int32_t disp = *reinterpret_cast<const int32_t*>(p + 3);
+                return instrAddr + off + 7 + disp;
+            }
+            if (off + 8 <= dataSize && (p[0] & 0xF8) == 0x40 && p[1] == 0x83 && p[2] == 0x3D) {
+                int32_t disp = *reinterpret_cast<const int32_t*>(p + 3);
+                return instrAddr + off + 8 + disp;
+            }
+            if (off + 8 <= dataSize && p[0] == 0xF2 && p[1] == 0x0F &&
+                (p[2] == 0x10 || p[2] == 0x5E || p[2] == 0x59 || p[2] == 0x58) &&
+                p[3] == 0x05) {
+                int32_t disp = *reinterpret_cast<const int32_t*>(p + 4);
+                return instrAddr + off + 8 + disp;
+            }
         }
         return 0;
     }
