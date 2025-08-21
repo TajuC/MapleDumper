@@ -1,7 +1,6 @@
 #ifndef LIBS_H
 #pragma once
 
-// Link against the required libraries.
 #pragma comment(lib, "iphlpapi.lib")
 #pragma comment(lib, "setupapi.lib")
 #pragma comment(lib, "wbemuuid.lib")

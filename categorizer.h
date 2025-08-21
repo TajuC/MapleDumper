@@ -48,38 +48,30 @@ namespace io {
         };
 
         static const std::unordered_set<std::string> offsets = {
-            // CWvsContext
             "Channel",
             "Server",
             "InTown",
             "InCashShop",
-            // CPlaceBase / CClickBase / CMapBase
             "LoginState",
             "HWND",
             "FieldId",
-            // CPlayerCount
             "RedDotCount",
-            // CUserLocal
             "RuneBuff", 
             "Navigation",
             "CharName", 
             "WeaponID",
-            // CWallBase
             "WallStruct", 
             "Wall_Left",
             "Wall_Top",
             "Wall_Right",
             "Wall_Bottom",
-            // GameTime
             "GameTime",
-            // ZtlSecure Encrypted Health
             "MaxHpPtr",
             "MaxHpKey",
             "MaxHpEnc",
             "CurHpPtr", 
             "CurHpKey", 
             "CurHpEnc",
-            // Mob / ZList
             "List",
             "Template",
             "MobID",

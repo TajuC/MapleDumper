@@ -20,6 +20,6 @@
 #pragma warning(push)
 #pragma warning(disable : 6001)
 #pragma warning(pop)
-#define OXOR(x) WRAPPER_MARCO(x)
+//#define OXOR(x) WRAPPER_MARCO(x)
 #define INCLUDES_H
 #endif
